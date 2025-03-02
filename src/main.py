@@ -1,28 +1,23 @@
-import os
 import json
 import asyncio
-import subprocess
-import re
-from typing import Dict, List, Optional, Tuple
+import os
+from typing import Dict, List
 from openai import AsyncOpenAI
-# from modules.tool_registry import ToolRegistry
-# from modules.knowledge_store import KnowledgeStore
+from modules.knowledge_store import KnowledgeStore
 from tabulate import tabulate
 
 OPENAI_API_KEY = "api-key"
-
 
 
 class CodeReviewAgent:
     """agent orchestrating multiple LLM calls to analyze diverse aspects of the code."""
 
     def __init__(self, model="gpt-4o"):
-        """an augmented LLM block : gpt-4o + knowledge_store + tool_registry"""
+        """an augmented LLM block : gpt-4o + knowledge_store"""
 
         self.client = AsyncOpenAI(api_key=OPENAI_API_KEY)
         self.model = model
-        # self.knowledge_store = KnowledgeStore()
-        # self.tool_registry = ToolRegistry()
+        self.knowledge_store = KnowledgeStore(name="knowledge_repo")
 
         self.aspects = {
             "time_complexity": "Analyze the time complexity of this code. "
@@ -50,13 +45,25 @@ class CodeReviewAgent:
         """analyze a single aspect of the code"""
         system_prompt = f"You are a code review expert focusing specifically on {aspect}. {prompt}"
 
+        # RAG
+        query = f"{aspect} review for {context}"
+        relevant_info = await self.knowledge_store.search(query, k=3)
+
+        retrieved_context = ""
+
+        if relevant_info:
+            retrieved_context = "Relevant information from knowledge base:\n"
+        for info in relevant_info:
+            retrieved_context += f"- {info['metadata']['original_content']}\n"
+
         try:
             response = await self.client.chat.completions.create(
                 model=self.model,
                 messages=[
                     {"role": "system", "content": system_prompt},
                     {"role": "user", "content": f"\nReview this code:\n```\n{code}\n```"
-                                                f"\nContext for this code:\n{context}\n"}
+                                                f"\nContext for this code:\n{context}\n"
+                                                f"\n{retrieved_context}"}
                 ],
                 max_tokens=1000
             )
@@ -142,7 +149,6 @@ class CodeGenerationAgent:
         plan = planner_response.choices[0].message.content
 
         executor_prompt = """
-        implementation_prompt =
         You are an expert code implementer. You have been given a detailed improvement plan for code modification.
         Your task is to implement this plan by writing the improved code. Make sure you give high priority to the
         human feedback.
@@ -216,44 +222,133 @@ class CodeGenerationAgent:
         return improved_code
 
 
+async def load_documents_for_knowledge_store(knowledge_store):
+    """Properly load documents into the knowledge store"""
+    documents = []
+    print("\nLoading documents for knowledge store...")
+
+    while True:
+        doc_input = input("\nEnter document content or file path (or 'done' to finish): ")
+        if doc_input.lower() == 'done':
+            break
+
+        doc_content = doc_input
+        # Check if input is a file path
+        if os.path.exists(doc_input):
+            try:
+                with open(doc_input, 'r', encoding='utf-8') as f:
+                    doc_content = f.read()
+                print(f"Successfully loaded file: {doc_input}")
+            except Exception as e:
+                print(f"Error reading file {doc_input}: {str(e)}")
+                continue
+
+        doc_title = input("Enter a title for this document: ")
+        doc_id = len(documents) + 1
+
+        # Ask if user wants to split into chunks
+        chunk_decision = input("Split this document into chunks? (yes/no): ").strip().lower()
+
+        chunks = []
+        if chunk_decision in ["yes", "y", "true", "1"]:
+            # Simple approach: split by paragraphs
+            chunk_paragraphs = [p.strip() for p in doc_content.split("\n\n") if p.strip()]
+            for i, paragraph in enumerate(chunk_paragraphs):
+                chunks.append({
+                    'chunk_id': i + 1,
+                    'original_index': i,
+                    'content': paragraph
+                })
+        else:
+            # Single chunk for the entire document
+            chunks.append({
+                'chunk_id': 1,
+                'original_index': 0,
+                'content': doc_content
+            })
+
+        documents.append({
+            'doc_id': doc_id,
+            'original_uuid': f"doc_{doc_id}_{doc_title.replace(' ', '_')}",
+            'content': doc_content,
+            'chunks': chunks
+        })
+
+        print(f"Added document: {doc_title} with {len(chunks)} chunks")
+
+    if documents:
+        print(f"\nLoading {len(documents)} documents with a total of {sum(len(doc['chunks']) for doc in documents)} chunks...")
+        await knowledge_store.load_data(documents)
+        print("Documents successfully loaded into knowledge store.")
+    else:
+        print("No documents were added to the knowledge store.")
+
+
+async def get_code_input():
+    """Get code and context from user"""
+    print("\nProvide code to review:")
+    code_lines = []
+    print("Enter code (type 'done' on a new line when finished):")
+    while True:
+        line = input()
+        if line.lower() == 'done':
+            break
+        code_lines.append(line)
+
+    code = "\n".join(code_lines)
+
+    print("\nProvide context for this code:")
+    context_lines = []
+    print("Enter context (type 'done' on a new line when finished):")
+    while True:
+        line = input()
+        if line.lower() == 'done':
+            break
+        context_lines.append(line)
+
+    context = "\n".join(context_lines)
+
+    return code, context
+
+
 async def main():
     """entry point of agent"""
 
     print("agent logging on.... hello!\n")
 
-    # while True:
-    #     code = input("provide code :\n")
-    #     if code.strip():
-    #         break
-    #     else:
-    #         print("no code given!\n")
-    #
-    # while True:
-    #     context = input("\nprovide context :\n")
-    #     if context.strip():
-    #         print("\n")
-    #         break
-    #     else:
-    #         print("no context given!\n")
-
-    code = """
-    class Solution:
-    def twoSum(self, nums: List[int], target: int) -> List[int]:
-        # Check each pair of numbers to see if they sum to the target.
-        for i in range(len(nums)):
-            for j in range(i + 1, len(nums)):
-                if nums[i] + nums[j] == target:
-                    return [i, j]
-        # This return is just for completeness; the problem guarantees exactly one solution.
-        return []
-    """
-
-    context = """
-    Given an array of integers nums and an integer target, return the indices of the two numbers such that they add up to the target. 
-    You may assume that each input would have exactly one solution, and you may not use the same element twice.
-    """
-
+    # Initialize the code review agent with KnowledgeStore integration
     code_review_agent = CodeReviewAgent()
+
+    # Ask if user wants to load documents
+    load_docs = input("would you like to load documents for the knowledge store? (yes/no): ").strip().lower()
+
+    if load_docs in ["yes", "y", "true", "1"]:
+        await load_documents_for_knowledge_store(code_review_agent.knowledge_store)
+
+    # Ask if user wants to use example code or provide their own
+    use_example = input("\nwould you like to use the example code (two sum solution)? (yes/no): ").strip().lower()
+
+    if use_example in ["yes", "y", "true", "1"]:
+        code = """
+        class Solution:
+            def twoSum(self, nums: List[int], target: int) -> List[int]:
+                # Check each pair of numbers to see if they sum to the target.
+                for i in range(len(nums)):
+                    for j in range(i + 1, len(nums)):
+                        if nums[i] + nums[j] == target:
+                            return [i, j]
+                # This return is just for completeness; the problem guarantees exactly one solution.
+                return []
+        """
+
+        context = """
+        Given an array of integers nums and an integer target, return the indices of the two numbers such that they add up to the target. 
+        You may assume that each input would have exactly one solution, and you may not use the same element twice.
+        """
+    else:
+        code, context = await get_code_input()
+
+    # Perform code review
     review = await code_review_agent.code_review(code, context)
 
     print("\n" + "="*80)
@@ -266,7 +361,7 @@ async def main():
 
     fix_decision = input("\nwould you like the code to be fixed? (yes/no): ").strip().lower()
 
-    if fix_decision in ["yes", "y", "true", "1"] :
+    if fix_decision in ["yes", "y", "true", "1"]:
         code_generation_agent = CodeGenerationAgent()
         generated_code = await code_generation_agent.generate_code(code, context, review)
 
