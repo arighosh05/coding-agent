@@ -237,10 +237,10 @@ class CodeGenerationAgent:
 async def load_documents_for_knowledge_store(knowledge_store):
     """Properly load documents into the knowledge store"""
     documents = []
-    print("\nLoading documents for knowledge store...")
+    print("\nloading documents for knowledge store...")
 
     while True:
-        doc_input = input("\nEnter document content or file path (or 'done' to finish): ")
+        doc_input = input("\nenter document content or file path (or 'done' to finish): ")
         if doc_input.lower() == 'done':
             break
 
@@ -250,16 +250,16 @@ async def load_documents_for_knowledge_store(knowledge_store):
             try:
                 with open(doc_input, 'r', encoding='utf-8') as f:
                     doc_content = f.read()
-                print(f"Successfully loaded file: {doc_input}")
+                print(f"successfully loaded file: {doc_input}")
             except Exception as e:
-                print(f"Error reading file {doc_input}: {str(e)}")
+                print(f"error reading file {doc_input}: {str(e)}")
                 continue
 
-        doc_title = input("Enter a title for this document: ")
+        doc_title = input("enter a title for this document: ")
         doc_id = len(documents) + 1
 
         # Ask if user wants to split into chunks
-        chunk_decision = input("Split this document into chunks? (yes/no): ").strip().lower()
+        chunk_decision = input("split this document into chunks? (yes/no): ").strip().lower()
 
         chunks = []
         if chunk_decision in ["yes", "y", "true", "1"]:
@@ -286,21 +286,21 @@ async def load_documents_for_knowledge_store(knowledge_store):
             'chunks': chunks
         })
 
-        print(f"Added document: {doc_title} with {len(chunks)} chunks")
+        print(f"added document: {doc_title} with {len(chunks)} chunks")
 
     if documents:
-        print(f"\nLoading {len(documents)} documents with a total of {sum(len(doc['chunks']) for doc in documents)} chunks...")
+        print(f"\nloading {len(documents)} documents with a total of {sum(len(doc['chunks']) for doc in documents)} chunks...")
         await knowledge_store.load_data(documents)
-        print("Documents successfully loaded into knowledge store.")
+        print("documents successfully loaded into knowledge store.")
     else:
-        print("No documents were added to the knowledge store.")
+        print("no documents were added to the knowledge store.")
 
 
 async def get_code_input():
     """Get code and context from user"""
-    print("\nProvide code to review:")
+    print("\nprovide code to review:")
     code_lines = []
-    print("Enter code (type 'done' on a new line when finished):")
+    print("enter code (type 'done' on a new line when finished):")
     while True:
         line = input()
         if line.lower() == 'done':
@@ -309,9 +309,9 @@ async def get_code_input():
 
     code = "\n".join(code_lines)
 
-    print("\nProvide context for this code:")
+    print("\nprovide context for this code:")
     context_lines = []
-    print("Enter context (type 'done' on a new line when finished):")
+    print("enter context (type 'done' on a new line when finished):")
     while True:
         line = input()
         if line.lower() == 'done':
@@ -332,33 +332,10 @@ async def main():
     code_review_agent = CodeReviewAgent()
 
     # Ask if user wants to load documents
-    load_docs = input("would you like to load documents for the knowledge store? (yes/no): ").strip().lower()
+    print("load docs:")
+    await load_documents_for_knowledge_store(code_review_agent.knowledge_store)
 
-    if load_docs in ["yes", "y", "true", "1"]:
-        await load_documents_for_knowledge_store(code_review_agent.knowledge_store)
-
-    # Ask if user wants to use example code or provide their own
-    use_example = input("\nwould you like to use the example code (two sum solution)? (yes/no): ").strip().lower()
-
-    if use_example in ["yes", "y", "true", "1"]:
-        code = """
-        class Solution:
-            def twoSum(self, nums: List[int], target: int) -> List[int]:
-                # Check each pair of numbers to see if they sum to the target.
-                for i in range(len(nums)):
-                    for j in range(i + 1, len(nums)):
-                        if nums[i] + nums[j] == target:
-                            return [i, j]
-                # This return is just for completeness; the problem guarantees exactly one solution.
-                return []
-        """
-
-        context = """
-        Given an array of integers nums and an integer target, return the indices of the two numbers such that they add up to the target. 
-        You may assume that each input would have exactly one solution, and you may not use the same element twice.
-        """
-    else:
-        code, context = await get_code_input()
+    code, context = await get_code_input()
 
     # Perform code review
     review = await code_review_agent.code_review(code, context)
@@ -382,7 +359,6 @@ async def main():
         print("="*80)
         print(generated_code)
         print("\n" + "="*80)
-
         print("agent logging off.... goodbye!")
 
     else:
