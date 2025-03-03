@@ -1,0 +1,11 @@
+{
+  "id": "eval_04",
+  "issue" : "issue/issue_eval_04.md",
+  "expected_issues": [
+    "Lack of code clarity"
+  ],
+  "agent" : "agent/agent_eval_04.py",
+  "llm" : "llm/llm_eval_03.py",
+  "success": true,
+  "comments": ""
+}
