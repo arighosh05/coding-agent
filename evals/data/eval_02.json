@@ -1,11 +1,11 @@
 {
   "id": "eval_02",
-  "issue" : "issue/issue_eval_02.txt",
+  "issue" : "issue/issue_eval_02.md",
   "expected_issues": [
-    "Inserting at the beginning of a list is inefficient as it requires shifting all other elements."
+    "Inefficient insertion"
   ],
-  "agent" : "agent/agent_eval_02.txt",
-  "llm" : "llm/llm_eval_02.txt",
+  "agent" : "agent/agent_eval_02.py",
+  "llm" : "llm/llm_eval_02.py",
   "success": true,
   "comments": ""
 }
