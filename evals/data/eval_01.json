@@ -1,1 +1,10 @@
-
+{
+  "id": "eval_01",
+  "input_code": "def divide(a, b): return a / b",
+  "input_context" : "context",
+  "expected_issues": ["Potential division by zero"],
+  "code_review": "Possible division by zero if b == 0.",
+  "improved_code": "def divide(a, b): return a / b if b != 0 else None",
+  "success": true,
+  "comments": "Agent correctly flagged the issue, and the fix properly handles zero-division."
+}
