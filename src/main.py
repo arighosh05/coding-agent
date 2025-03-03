@@ -4,6 +4,7 @@ import os
 from typing import Dict, List
 from openai import AsyncOpenAI
 from modules.knowledge_store import KnowledgeStore
+from modules.tool_registry import get_tool_by_aspect
 from tabulate import tabulate
 
 OPENAI_API_KEY = "api-key"
@@ -56,6 +57,17 @@ class CodeReviewAgent:
         for info in relevant_info:
             retrieved_context += f"- {info['metadata']['original_content']}\n"
 
+        # --- Function Calling via Tool Registry ---
+        # Attempt to get a tool function for the given aspect.
+        tool_func = get_tool_by_aspect(aspect)
+        tool_result = ""
+        if tool_func:
+            # Call the tool function synchronously.
+            tool_result = tool_func(code)
+
+        # Combine the retrieved context with the tool output.
+        combined_context = f"{retrieved_context}\nTool analysis result:\n{tool_result}"
+
         try:
             response = await self.client.chat.completions.create(
                 model=self.model,
@@ -63,7 +75,7 @@ class CodeReviewAgent:
                     {"role": "system", "content": system_prompt},
                     {"role": "user", "content": f"\nReview this code:\n```\n{code}\n```"
                                                 f"\nContext for this code:\n{context}\n"
-                                                f"\n{retrieved_context}"}
+                                                f"\n{combined_context}"}
                 ],
                 max_tokens=1000
             )
