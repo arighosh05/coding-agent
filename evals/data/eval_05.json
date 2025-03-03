@@ -1,0 +1,14 @@
+{
+  "id": "eval_05",
+  "issue" : "issue/issue_eval_05.md",
+  "expected_issues": [
+    "Redundant computations",
+    "Unnecessary copying",
+    "Poor algorithmic choices",
+    "Inefficient nested loops"
+  ],
+  "agent" : "agent/agent_eval_05.py",
+  "llm" : "llm/llm_eval_05.py",
+  "success": true,
+  "comments": ""
+}
