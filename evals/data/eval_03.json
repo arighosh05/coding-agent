@@ -1,0 +1,11 @@
+{
+  "id": "eval_03",
+  "issue" : "issue/issue_eval_03.txt",
+  "expected_issues": [
+    "Entire dataset is loaded into memory"
+  ],
+  "agent" : "agent/agent_eval_03.txt",
+  "llm" : "llm/llm_eval_03.txt",
+  "success": true,
+  "comments": ""
+}
