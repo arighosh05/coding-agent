@@ -1,0 +1,11 @@
+{
+  "id": "eval_06",
+  "issue" : "issue/issue_eval_06.md",
+  "expected_issues": [
+    "Logical error in judge_leap_year function"
+  ],
+  "agent" : "agent/agent_eval_06.py",
+  "llm" : "llm/llm_eval_06.py",
+  "success": true,
+  "comments": ""
+}
