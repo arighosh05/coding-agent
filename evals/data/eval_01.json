@@ -1,7 +1,10 @@
 {
   "id": "eval_01",
   "issue" : "issue/issue_eval_01.txt",
-  "expected_issues" : [""],
+  "expected_issues": [
+    "File is not closed after reading.",
+    "Potential security vulnerability: dangerous 'os.system' call."
+  ],
   "agent" : "agent/agent_eval_01.txt",
   "llm" : "llm/llm_eval_01.txt",
   "success": true,
