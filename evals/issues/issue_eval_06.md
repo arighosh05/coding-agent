@@ -52,5 +52,5 @@ print("%d months or %d days" % (month, day))
 ### context
 
 ```
-python program to prints age as years, months, and days
+python program to print age as years, months, and days
 ```
