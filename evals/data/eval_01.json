@@ -1,10 +1,11 @@
 {
   "id": "eval_01",
-  "input_code": "def divide(a, b): return a / b",
-  "input_context" : "context",
+  "input_code": "def divide(a, b):\n    return a / b",
   "expected_issues": ["Potential division by zero"],
-  "code_review": "Possible division by zero if b == 0.",
-  "improved_code": "def divide(a, b): return a / b if b != 0 else None",
+  "agent_review": "Possible division by zero if b == 0.",
+  "agent_fixed_code": "def divide(a, b):\n    return a / b if b != 0 else None",
+  "chatgpt_review": "Division by zero could occur if b is 0.",
+  "chatgpt_fixed_code": "def divide(a, b):\n    if b == 0:\n        raise ValueError(\"Cannot divide by zero\")\n    return a / b",
   "success": true,
-  "comments": "Agent correctly flagged the issue, and the fix properly handles zero-division."
+  "comments": "Both flagged the issue, but ChatGPT suggested raising an exception, which may be a better practice."
 }
