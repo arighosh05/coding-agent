@@ -72,10 +72,10 @@ class KnowledgeStore:
 
     async def load_data(self, dataset: List[Dict[str, Any]], parallel_threads: int = 1):
         if self.embeddings and self.metadata:
-            print("Vector database is already loaded. Skipping data loading.")
+            print("vector database is already loaded. skipping data loading.")
             return
         if os.path.exists(self.db_path):
-            print("Loading vector database from disk.")
+            print("loading vector database from disk.")
             await self.load_db()
             return
 
