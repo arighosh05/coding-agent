@@ -1,0 +1,13 @@
+{
+  "id": "eval_14",
+  "issue" : "issue/issue_eval_14.md",
+  "expected_issues": [
+    "Wrong imports",
+    "Incorrect comments",
+    "Security vulnerabilities"
+  ],
+  "agent" : "agent/agent_eval_14.py",
+  "llm" : "llm/llm_eval_14.py",
+  "success": true,
+  "comments": ""
+}
