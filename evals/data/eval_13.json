@@ -1,0 +1,12 @@
+{
+  "id": "eval_13",
+  "issue" : "issue/issue_eval_13.md",
+  "expected_issues": [
+    "Missing imports",
+    "Inefficient synchronous operations"
+  ],
+  "agent" : "agent/agent_eval_13.py",
+  "llm" : "llm/llm_eval_13.py",
+  "success": true,
+  "comments": ""
+}
