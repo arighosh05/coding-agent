@@ -49,8 +49,8 @@ The agent integrates **human-in-the-loop** mechanisms strategically throughout i
 
 Some pertinent notes are listed here:
 
-1. Comprehensive evaluation is crucial for AI system development - detailed findings available [here]([https://website-name.com](https://github.com/arighosh05/)coding-agent/evals/report.md).
-2. This project builds upon extensive research and prior work - a curated list of references can be found [here]([https://website-name.com](https://github.com/arighosh05/)coding-agent/references.md).
+1. Comprehensive evaluation is crucial for AI system development - detailed findings available [here](https://github.com/arighosh05/coding-agent/evals/report.md).
+2. This project builds upon extensive research and prior work - a curated list of references can be found [here](https://github.com/arighosh05/coding-agent/references.md).
 
 ## Meta
 
