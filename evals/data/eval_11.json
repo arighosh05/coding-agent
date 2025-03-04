@@ -5,7 +5,7 @@
     "User prompting for potentially dangerous code"
   ],
   "agent" : "agent/agent_eval_11.py",
-  "llm" : "llm/llm_eval_11.py",
+  "llm" : "llm/llm_eval_11.txt",
   "success": true,
   "comments": ""
 }
