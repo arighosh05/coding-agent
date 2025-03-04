@@ -1,0 +1,9 @@
+{
+  "id": "eval_08",
+  "issue" : "issue/issue_eval_08.md",
+  "expected_issues": [],
+  "agent" : "agent/agent_eval_08.py",
+  "llm" : "llm/llm_eval_08.py",
+  "success": true,
+  "comments": ""
+}
