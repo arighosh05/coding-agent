@@ -33,7 +33,9 @@ The workflow of the agent is represented by the diagram below:
   <img src="./img/high_level_diagram.png" alt="image" width="950">
 </p>
 
-At a high-level, the agent takes in as input code and the corresponding context and spits out as output a comprehensive code review.  If the user opts for it, the agent generates improved code based on the code review and optional human feedback. 
+At a high-level, the agent takes in as input some code with its corresponding context and spits out as output a comprehensive code review.  Furthermore, if the user opts for it, the agent generates improved code based on the previously generated code review and optional human feedback. 
+
+Let's dive deeper into the technical elements that compose the agent.
 
 ## Notes
 
