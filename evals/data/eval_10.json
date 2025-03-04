@@ -1,0 +1,11 @@
+{
+  "id": "eval_10",
+  "issue" : "issue/issue_eval_10.md",
+  "expected_issues": [
+    "Solution sub-optimal - may be further optimized via iteration with a single loop"
+  ],
+  "agent" : "agent/agent_eval_10.py",
+  "llm" : "llm/llm_eval_10.py",
+  "success": true,
+  "comments": ""
+}
