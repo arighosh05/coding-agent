@@ -1,0 +1,11 @@
+{
+  "id": "eval_11",
+  "issue" : "issue/issue_eval_11.md",
+  "expected_issues": [
+    "User prompting for potentially dangerous code"
+  ],
+  "agent" : "agent/agent_eval_11.py",
+  "llm" : "llm/llm_eval_11.py",
+  "success": true,
+  "comments": ""
+}
