@@ -39,8 +39,6 @@ Let's dive deeper into the technical elements that compose the agent.
 
 ## Notes
 
-## References
-
 ## Meta
 
 Aritra Ghosh – aritraghosh543@gmail.com
