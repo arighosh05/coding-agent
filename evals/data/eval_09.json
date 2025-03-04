@@ -1,0 +1,11 @@
+{
+  "id": "eval_09",
+  "issue" : "issue/issue_eval_09.md",
+  "expected_issues": [
+    "Solution sub-optimal - may be further optimized via dynamic programming"
+  ],
+  "agent" : "agent/agent_eval_09.py",
+  "llm" : "llm/llm_eval_09.py",
+  "success": true,
+  "comments": ""
+}
