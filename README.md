@@ -37,6 +37,10 @@ At a high-level, the agent takes in as input some code with its corresponding co
 
 Let's dive deeper into the technical elements that compose the agent.
 
+The agent has access to a ***knowledge store***. The idea behind the knowledge store is to augment the knowledge of the LLMs. In essence, the agent retrieves relevant information from ingested documents to fill in any knowledge gaps. This approach is generally called **Retrieval Augmented Generation** or **RAG** for short. The agent is optimized to perform ***contextual retrieval***, wherin, instead of just embedding raw text chunks, the agent makes LLM calls to generate a brief contextual summary for each chunk. The entire process is greately parallelized, meaning that embeddings and contextual summaries are generated in parallel, significantly reducing processing time. The implementation includes methods to save and load the vector database, making it persistent across sessions. It uses FAISS for efficient similarity search, which allows for extremely fast nearest-neighbor queries. The system supports caching query embeddings and performing top-k similarity searches, making it adaptable to various retrieval scenarios.
+
+The agent has access to a ***tool registry***. The idea behind the tool registry is to provide comprehensive, multi-dimensional code evaluation tools through a pluggable and extensible architecture. It provides a mapping of the various analysis aspects to specialized functions designed to perform static code analysis. The registry comes preloaded with hand-crafted functions that employ multiple advanced static code analysis techniques including abstract syntax tree parsing, regular expression-based pattern matching, recursive code traversal, and comprehensive code pattern detection. The modular design of the tool registry allows easy addition of new analysis tools. The agent is optimized to front-load the computational work by directly passing the code as input to the analysis functions, bypassing traditional function-calling and making the generation phase more efficient.
+
 ## Notes
 
 ## Meta
