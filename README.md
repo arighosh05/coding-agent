@@ -33,6 +33,8 @@ The workflow of the agent is represented by the diagram below:
   <img src="./img/high_level_diagram.png" alt="image" width="950">
 </p>
 
+At a high-level, the agent takes in as input the code and the corresponding context for the code review. Documents are ingested into a knowledge base and tools are added to a tool registry in order to augment the vanilla LLM blocks. For each aspect, the agent leverages both a knowledge-based retrieval of context and specialized static analysis tools to generate detailed insights via parallelized calls to augmented LLM blocks. These individual analyses are then aggregated and presented as a comprehensive code review report. If the user opts for improvements, a separate code generation agent comes into play. This agent first generates a detailed improvement plan by prioritizing issues and incorporating any human feedback, and then synthesizes an updated version of the code using a dual LLM approach that alternates between planning and execution. 
+
 ## Notes
 
 ## References
