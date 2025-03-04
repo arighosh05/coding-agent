@@ -19,6 +19,16 @@ a coding agent for code review
 
 ## About
 
+In this work, we present an experimental framework that enhances the code review process via augmenting the core developer workflow. Our coding agent is built on the belief that the future reveals itself not in systems that act independently, but in architectures that breathe alongside us, enhancing the uniquely human capacity for creative insight. 
+
+To this end, our agent is composed of a thoughtfully crafted workflow with augmented LLM blocks and deliberate human checkpoints to streamline the code review process. To evaluate our agent, we compare our approach with direct foundation model use, exploring the nuances of orchestrated AI assistance versus monolithic system deployment.
+
+This work hopes to serve as a thoughtful comma in an ongoing dialogue about what we build, why we build it, and who we become alongside our creations. 
+
+## Workflow
+
+## Notes
+
 ## Meta
 
 Aritra Ghosh – aritraghosh543@gmail.com
