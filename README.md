@@ -27,6 +27,12 @@ This work hopes to serve as a thoughtful comma in an ongoing dialogue about what
 
 ## Workflow
 
+The workflow of the agent is represented by the diagram below:
+
+<p align="center">
+  <img src="./img/high_level_diagram.png" alt="image" width="950">
+</p>
+
 ## Notes
 
 ## Meta
