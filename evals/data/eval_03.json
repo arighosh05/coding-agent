@@ -7,5 +7,5 @@
   "agent" : "agent/agent_eval_03.py",
   "llm" : "llm/llm_eval_03.py",
   "success": true,
-  "comments": ""
+  "comments": "agent arguably does better than llm"
 }
