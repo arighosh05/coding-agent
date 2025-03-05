@@ -6,6 +6,6 @@
   ],
   "agent" : "agent/agent_eval_11.py",
   "llm" : "llm/llm_eval_11.txt",
-  "success": true,
-  "comments": ""
+  "success": false,
+  "comments": "agent fails to deny request, llm denies request"
 }
