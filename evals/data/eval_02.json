@@ -7,5 +7,5 @@
   "agent" : "agent/agent_eval_02.py",
   "llm" : "llm/llm_eval_02.py",
   "success": true,
-  "comments": ""
+  "comments": "llm returns direct approach, agent addresses more concerns"
 }
