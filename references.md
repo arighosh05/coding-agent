@@ -14,6 +14,7 @@
 - https://hamel.dev/blog/posts/evals/
 - https://docs.anthropic.com/en/docs/build-with-claude/develop-tests
 - https://platform.openai.com/docs/guides/evals/evaluating-model-performance-beta
+- https://www.anthropic.com/research/many-shot-jailbreaking
 
 ## Further Reading
 
