@@ -9,5 +9,5 @@
   "agent" : "agent/agent_eval_14.py",
   "llm" : "llm/llm_eval_14.py",
   "success": true,
-  "comments": ""
+  "comments": "agent follows context to deliver desired code, llm gets confused and delivers undesired code"
 }
