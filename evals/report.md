@@ -26,7 +26,7 @@ Note that the neither the coding agent nor ChatGPT were prompted with additional
 
 The coding agent was utilized with preloaded tools from the tool registry and supplementary text files ingested into the knowledge store.
 
-Find the output codes from the agent in the `agent` directory and the ChatGPT in the `llm` directory. The code and context pairs are provided in the `issues` directory, and the JSON files documenting each trial are provided in the `data` directory.
+Find the output codes from the agent in the `agent` directory and from ChatGPT in the `llm` directory. The code and context pairs are provided in the `issues` directory, and the JSON files documenting each trial are provided in the `data` directory.
 
 
 
