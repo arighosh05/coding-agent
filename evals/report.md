@@ -14,6 +14,22 @@ As automated coding agents become increasingly sophisticated, systematic assessm
 
 ## Methodology
 
+We conducted a comparative evaluation of our coding agent against OpenAI's ChatGPT using a standardized set of code review and improvement tasks. The evaluation consisted of 15 distinct code and context pairs, with both systems utilizing the 4o model to ensure a consistent baseline for comparison.
+
+For each prompt, the following protocol was followed:
+
+- Provide code and contextual information to both the coding agent and ChatGPT
+- Prompt for a comprehensive code review
+- If potential improvements were identified, request code refinement
+
+Note that the neither the coding agent nor ChatGPT were prompted with additional human feedback.
+
+The coding agent was utilized with preloaded tools from the tool registry and supplementary text files ingested into the knowledge store.
+
+Find the output codes from the agent in the `agent` directory and the ChatGPT in the `llm` directory. The code and context pairs are provided in the `issues` directory, and the JSON files documenting each trial are provided in the `data` directory.
+
+
+
 ## Results
 
 ## Conclusion
