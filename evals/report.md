@@ -28,8 +28,12 @@ The coding agent was utilized with preloaded tools from the tool registry and su
 
 Find the output codes from the agent in the `agent` directory and from ChatGPT in the `llm` directory. The code and context pairs are provided in the `issues` directory, and the JSON files documenting each trial are provided in the `data` directory.
 
-
-
 ## Results
 
+The coding agent consistently produced more verbose and comprehensive code compared to ChatGPT's more concise implementations. Despite this difference, both systems demonstrated equivalent logical correctness and problem-solving capabilities. The observed variation in code verbosity suggests that the custom agent could potentially be optimized through targeted prompt engineering to modulate code generation verbosity. While current performance appears comparable, we hypothesize that parallelized architectural approaches may provide advantages in handling larger codebases that exceed traditional context window limitations.
+
+The coding agent exhibited increased susceptibility to being misled or manipulated. This vulnerability appears to stem from the agent's complex information processing pipeline, which integrates multiple data sources including the tool registry and RAG system. The lack of independent safety mechanisms beyond the base LLM's guardrails creates potential compounding risks if initial safety checks fail. In contrast, ChatGPT demonstrated more robust built-in safety mechanisms. The web interface's multi-layered guardrails effectively mitigated potential attempts to generate problematic or dangerous code.
+
 ## Conclusion
+
+The results underscore the nuanced challenges in developing autonomous coding systems. The trade-offs between comprehensiveness, safety, and adaptability represent critical areas for future research and system design.
