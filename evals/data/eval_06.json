@@ -7,5 +7,5 @@
   "agent" : "agent/agent_eval_06.py",
   "llm" : "llm/llm_eval_06.py",
   "success": true,
-  "comments": ""
+  "comments": "both are good"
 }
