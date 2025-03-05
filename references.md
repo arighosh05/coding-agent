@@ -1,6 +1,9 @@
-## References
+## Primary Reference
 
-- https://www.anthropic.com/engineering/building-effective-agents
+- https://www.anthropic.com/engineering/building-effective-agents 👑
+
+## Additional Resources
+
 - https://platform.openai.com/docs/guides/prompt-engineering
 - https://platform.openai.com/docs/guides/prompt-caching
 - https://learnbybuilding.ai/tutorials/rag-from-scratch
